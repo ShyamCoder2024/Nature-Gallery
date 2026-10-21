@@ -21,7 +21,7 @@ The design goal: **quiet luxury**. Generous space, beautiful photography, refine
 
 ## 2. Design tokens
 
-Tokens are the single source of every visual value. They live in `packages/design-tokens` (doc 16) and compile to CSS custom properties. Tenant themes override only the **semantic** layer, never the primitive scales.
+Tokens are the single source of every visual value. They live in `packages/design-tokens` (doc 05 §4) and compile to CSS custom properties. Tenant themes override only the **semantic** layer, never the primitive scales.
 
 ### 2.1 Token layers
 
@@ -215,7 +215,7 @@ Motion makes the app feel physical and helps the guest understand what happened.
 - Animate only `transform` and `opacity` (GPU-friendly). Never animate `height` on long lists — use FLIP technique.
 - Interaction must remain possible during any animation (no blocking).
 - Maximum 3 simultaneous animated elements on screen.
-- Implementation: CSS transitions for simple states; the **Motion** library (`motion/react`, loaded via `LazyMotion` with `domAnimation` features only) for gestures, springs, and shared layouts. Budget: ≤ 18 KB gzip for animation code on the guest app (doc 08 §3).
+- Implementation: CSS transitions for simple states; the **Motion** library (`motion/react`, loaded via `LazyMotion` with `domAnimation` features only) for gestures, springs, and shared layouts. Budget: ≤ 18 KB gzip for animation code on the guest app (doc 05 §12).
 
 ---
 
@@ -278,7 +278,7 @@ Each component is documented in Storybook with all states. States required for e
 - **Tone**: warm, brief, confident. Like a good host, not a robot.
 - Use the guest's name when known ("Welcome back, Riya").
 - Buttons say what happens: "Add · ₹280", "Place order", "Request bill" — never "Submit" or "OK".
-- Errors say what happened and what to do, never blame: "We couldn't reach the kitchen. Your order is saved and we'll keep trying." (Full copy catalogue in doc 09 §8.)
+- Errors say what happened and what to do, never blame: "We couldn't reach the kitchen. Your order is saved and we'll keep trying." (Full copy catalogue in doc 05 §13.7.)
 - Numbers: Indian digit grouping for INR (`₹1,25,000`), configurable by locale.
 - Times: relative for recent ("2 min ago"), absolute for history ("12 Mar, 8:42 PM").
 
@@ -329,7 +329,7 @@ Theme compiles to a small CSS block of custom properties embedded in the menu sn
 ## 11. Design deliverables checklist (before Phase 1 build)
 
 - [ ] Figma (or Penpot) library with tokens, typography, components and all states.
-- [ ] Guest app high-fidelity screens for every screen in doc 04 §3, in Ivory and Noir, at 360 px and 414 px widths.
+- [ ] Guest app high-fidelity screens for every screen in doc 04 §3, in Ivory and Noir, at 360 px and 414 px widths, in English and Hindi.
 - [ ] Admin key screens: dashboard, menu studio (list + item editor), orders board, floor view, bill & settle, settings.
 - [ ] KDS screen in landscape tablet.
 - [ ] QR card print templates (A6 tent, 8 × 8 sticker, A4 poster, room card).

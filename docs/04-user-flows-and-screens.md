@@ -29,10 +29,10 @@ Scan QR
 
 **Step details**
 
-1. **Scan.** Phone camera opens `https://<short-domain>/q/<token>`. The edge resolves the token to `outlet + spot` (doc 07 §4.1) and serves the HTML shell with the theme and the menu snapshot reference.
+1. **Scan.** Phone camera opens `https://<short-domain>/q/<token>`. The edge resolves the token to `outlet + spot` (doc 05 §9) and serves the HTML shell with the theme and the menu snapshot reference.
 2. **Menu.** Rendered from the snapshot (server-rendered HTML for first paint, then hydrated). The device gets an anonymous `guest_device` cookie.
-3. **Add items.** Cart lives on the device (IndexedDB) and is mirrored to the server in the background (doc 08 §6) so staff could see it if needed (P2 shared cart builds on this).
-4. **Place order.** Client generates an idempotency key, validates the cart with the server (`POST /cart/validate`), then sends `POST /orders` (doc 07 §4.4). If offline, the order goes into the device outbox and the UI shows "Sending…".
+3. **Add items.** Cart lives on the device (IndexedDB) and is mirrored to the server in the background (doc 05 §12.5) so staff could see it if needed (P2 shared cart builds on this).
+4. **Place order.** Client generates an idempotency key, validates the cart with the server (`POST /cart/validate`), then sends `POST /orders` (doc 05 §10). If offline, the order goes into the device outbox and the UI shows "Sending…".
 5. **Identity.** Shown only when the tenant requires it and the device isn't recognised. The cart is preserved and placing continues right after verification (no second tap needed).
 6. **Status.** Realtime subscription to the order and session; falls back to polling every 5 s (then 15 s after 2 min) if the socket can't connect.
 7. **Bill.** Server-calculated bill in G-08. "Pay at counter" creates a bill request and a service request for staff.

@@ -64,7 +64,7 @@ The finest ordering experience in hospitality:
   - Selling to a new restaurant takes minutes: create the business in the platform admin, send the owner an invite, print the QR cards. Nothing is installed anywhere.
   - One codebase and one set of servers for every customer. A bug fix or new feature reaches all businesses the moment it ships.
   - The founder sees all customers, their plans, usage, and health in one panel, and can suspend, upgrade, or help any business from there.
-  - Costs grow slowly: 10 or 1,000 businesses run on the same infrastructure, scaled up as needed (doc 14).
+  - Costs grow slowly: 10 or 1,000 businesses run on the same infrastructure, scaled up as needed (doc 05 §19).
 - **Market**: India only (D-02) — INR, GST, UPI, +91 numbers. Guest app in English with a Hindi switch (D-11).
 - **Pricing and plans are decided by the founder** and configured in the plan builder (doc 02 §9, PLT-003). The software has no fixed prices.
 - The founder sets up each business (or the business self-onboards later), prints QR cards, and hands over.

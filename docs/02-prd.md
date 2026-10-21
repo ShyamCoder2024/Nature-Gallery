@@ -2,14 +2,14 @@
 
 Version 1.0 · Owner: Founder · Status: Draft for review
 
-This document lists **what** the product must do. **How** it is built lives in docs 05–09. Each requirement has a stable ID, a priority, and acceptance criteria.
+This document lists **what** the product must do. **How** it is built lives in doc 05 (architecture). Each requirement has a stable ID, a priority, and acceptance criteria.
 
 **Priority**
 - **P0** — required for the first sellable release.
 - **P1** — required soon after launch; designed for now so it fits without rework.
 - **P2** — later; listed so the data model and UI leave room for it.
 
-**Phase** refers to [15-development-roadmap.md](./15-development-roadmap.md).
+**Phase** refers to the build phases in [05-architecture.md §20](./05-architecture.md#20-build-phases).
 
 ---
 
@@ -86,7 +86,7 @@ Need a screen that is readable from two metres away, loud for new orders, and im
 | GST-MENU-005 | P0 | Search across item names, descriptions, and tags, with results as you type (client-side, works offline once menu is loaded). Tolerates small typos ("panner" finds "Paneer"). |
 | GST-MENU-006 | P0 | Filters: Veg only, Non-veg, Egg, Vegan, plus tenant-defined tags (e.g. "Gluten free", "Jain"). Filters combine with search. Filter choice is remembered for the session. |
 | GST-MENU-007 | P0 | Item layout options chosen by the tenant per category: **photo list** (default), **photo grid** (2 columns), **text list** (no photos, for drinks/bar). |
-| GST-MENU-008 | P0 | Images load progressively: blurred placeholder first, then the right size for the screen (doc 08 §5). The page never jumps while images load. |
+| GST-MENU-008 | P0 | Images load progressively: blurred placeholder first, then the right size for the screen (doc 05 §12.4). The page never jumps while images load. |
 | GST-MENU-009 | P0 | Prices are shown as the business configured them (tax-inclusive or tax-exclusive, ADM-SET-004). If exclusive, a small note says "Prices exclude taxes". |
 | GST-MENU-010 | P1 | "Recommended for you" row at the top for recognised returning guests (their past favourites) and "Popular here" for everyone else. |
 | GST-MENU-011 | P0 | **English / हिंदी switch** in the header (D-11). Default is English. Switching is instant (no reload) and remembered on the device. All app text (buttons, labels, messages, errors) switches; dish names and descriptions switch where the business has added Hindi text and fall back to English otherwise. |
@@ -116,7 +116,7 @@ Need a screen that is readable from two metres away, loud for new orders, and im
 | GST-CART-003 | P0 | Increase/decrease quantity with immediate visual feedback. Decreasing to zero removes the line with an "Undo" toast for 5 s. |
 | GST-CART-004 | P0 | Tapping a line reopens the item sheet to edit its options. |
 | GST-CART-005 | P0 | Cart is saved on the device (survives refresh, tab close, network loss, re-scan) for 12 hours or until ordered. Cart is tied to the outlet; scanning a different outlet's QR keeps carts separate. |
-| GST-CART-006 | P0 | Cart shows a bill preview: item subtotal, discounts (if any auto-applied), taxes, service charge (optional and removable, D-15), rounding, and total. Calculated with the same rules as the server (doc 06 §8). |
+| GST-CART-006 | P0 | Cart shows a bill preview: item subtotal, discounts (if any auto-applied), taxes, service charge (optional and removable, D-15), rounding, and total. Calculated with the same rules as the server (doc 05 §7.9). |
 | GST-CART-007 | P0 | Order notes for the whole order (e.g. "Serve starters first"), max 200 characters. |
 | GST-CART-008 | P0 | Before placing an order, the cart is validated against the current menu. If an item became sold out, its price changed, or an option was removed, the guest sees exactly which lines changed and must confirm. Never silently change a price. |
 | GST-CART-009 | P0 | Maximum quantity per line (default 20) and per order (default 50 items) to stop accidental or malicious huge orders; tenant can change both. |
@@ -127,7 +127,7 @@ Need a screen that is readable from two metres away, loud for new orders, and im
 | ID | Pri | Requirement |
 |----|-----|-------------|
 | GST-ORD-001 | P0 | "Place order" submits the cart as one order (a round) into the spot's active table session. If no session is open, one is created. |
-| GST-ORD-002 | P0 | Placing an order is **idempotent**: a double tap, a retry after a timeout, or a resend after going offline creates exactly one order (doc 09 §5). |
+| GST-ORD-002 | P0 | Placing an order is **idempotent**: a double tap, a retry after a timeout, or a resend after going offline creates exactly one order (doc 05 §10). |
 | GST-ORD-003 | P0 | On a weak or lost connection, the order is queued on the device and sent automatically when the connection returns. The guest sees "Sending your order…" with honest status, never a false "Confirmed". |
 | GST-ORD-004 | P0 | Guest identity (GST-ID) is requested at the first order of a session if the tenant requires it; returning recognised guests skip this step. |
 | GST-ORD-005 | P0 | After placing, the guest sees an order status screen with a live timeline: **Sent → Confirmed → Preparing → Ready → Served**. Status updates arrive in realtime, with automatic fallback to periodic refresh. |
@@ -147,13 +147,13 @@ Need a screen that is readable from two metres away, loud for new orders, and im
 |----|-----|-------------|
 | GST-ID-001 | P0 | Guest enters only their **name** and **mobile number** (D-17). The number is an Indian mobile number: `+91` is fixed, 10 digits starting with 6–9. No other personal fields are ever asked. |
 | GST-ID-002 | P0 | Phone is verified with a 6-digit OTP sent by SMS (D-05). On Android, the OTP auto-fills using the Web OTP API; on iOS, the keyboard suggests it via `autocomplete="one-time-code"`. |
-| GST-ID-003 | P0 | OTP rules: valid 5 minutes, max 5 attempts, resend allowed after 30 s, max 3 sends per number per 15 minutes, max 10 per device per hour (doc 10 §6). |
+| GST-ID-003 | P0 | OTP rules: valid 5 minutes, max 5 attempts, resend allowed after 30 s, max 3 sends per number per 15 minutes, max 10 per device per hour (doc 05 §14.6). |
 | GST-ID-004 | P0 | A clear consent line is shown before sending the OTP: what we store (name, phone number, orders — nothing else), why (order updates, history, the business recognising you), and a link to the privacy notice. Optional separate checkbox for marketing messages (unticked by default). |
 | GST-ID-005 | P0 | After verification, the device is remembered for that tenant for 180 days (secure, httpOnly cookie). Next visit: "Welcome back, Riya" and no OTP needed. |
 | GST-ID-006 | P0 | Recognised guests see **"Your usual"**: their most ordered items at this tenant, and **"Last time you had…"** with one-tap **Reorder** (re-validated against today's menu and prices). |
 | GST-ID-007 | P0 | "My orders" screen: past visits at this tenant (date, outlet, items, total), each with Reorder. |
 | GST-ID-008 | P0 | Tenants can switch OTP off (D-05). Then name + phone are stored as **unverified**, history is shown only on the same device that entered them, and the admin sees an "Unverified" label. |
-| GST-ID-009 | P0 | Guest can log out on the device, and can request deletion of their data at this tenant from the profile screen (doc 10 §8). |
+| GST-ID-009 | P0 | Guest can log out on the device, and can request deletion of their data at this tenant from the profile screen (doc 05 §14.8). |
 | GST-ID-010 | P1 | WhatsApp as an OTP channel where available (fallback to SMS). |
 | GST-ID-012 | P0 | Guests can skip identity entirely if the tenant allows anonymous ordering (setting); they can still order and pay at counter. |
 
@@ -163,7 +163,7 @@ Need a screen that is readable from two metres away, loud for new orders, and im
 |----|-----|-------------|
 | GST-PAY-001 | P0 | "View bill" shows the full session bill: each order's items, subtotal, discounts, taxes (by tax type, e.g. CGST 2.5 %, SGST 2.5 %), service charge (optional, removable), rounding, total, amount paid, amount due. |
 | GST-PAY-002 | P0 | **Pay at counter**: guest taps "Pay at counter"; staff are notified ("Table 12 wants to pay") and the bill is marked "Bill requested". |
-| GST-PAY-003 | P1 (Phase 8) | **Pay online** through the payment plug-in (doc 12): full amount or (P2) split equally / by items. |
+| GST-PAY-003 | P1 (Phase 8) | **Pay online** through the payment plug-in (doc 05 §16): full amount or (P2) split equally / by items. |
 | GST-PAY-004 | P0 | After settlement, the guest sees "Paid — thank you" and a digital receipt (shareable link, downloadable PDF in P1). |
 | GST-PAY-005 | P1 | Tip option (preset percentages + custom) if enabled by the tenant. Tips are recorded separately from revenue. |
 | GST-PAY-006 | P0 | The bill is always calculated by the server. The guest app only displays it. |
@@ -261,7 +261,7 @@ The admin app is used on laptops, tablets, and phones. Every screen must work on
 | ADM-ORD-007 | P0 | Filter board by area, station, status; search by spot or order number. |
 | ADM-ORD-008 | P0 | Order history list with filters (date range, status, spot, staff, payment method) and order details including a full status timeline (who did what, when). |
 | ADM-ORD-009 | P0 | Pause ordering for the whole outlet ("Kitchen busy — ordering paused for 20 min") or for a station; guests see a friendly message and can still browse. |
-| ADM-ORD-010 | P0 | Boards and KDS keep working through brief disconnects; on reconnect they fetch everything missed and show a "Reconnected — 2 new orders" banner (doc 08 §7). |
+| ADM-ORD-010 | P0 | Boards and KDS keep working through brief disconnects; on reconnect they fetch everything missed and show a "Reconnected — 2 new orders" banner (doc 05 §11). |
 | ADM-ORD-011 | P1 | **Kitchen stations** (e.g. Kitchen, Bar, Dessert): items are routed to stations; each KDS shows only its station's lines. |
 | ADM-ORD-012 | P1 | Prep time tracking: actual time from Confirmed to Ready per item, used for estimates (GST-ORD-010) and insights. |
 
@@ -274,7 +274,7 @@ The admin app is used on laptops, tablets, and phones. Every screen must work on
 | KDS-003 | P0 | Tap item to strike it through (prepared); tap "Ready" (or "Bump") to move the whole ticket to Ready. "Recall" restores the last bumped ticket. |
 | KDS-004 | P0 | Loud new-ticket sound; screen keeps awake (Wake Lock API); full-screen mode; works for a full shift without reloading. |
 | KDS-005 | P0 | Connection indicator always visible: green (live), amber (reconnecting), red (offline > 10 s, with a loud alert). |
-| KDS-006 | P0 | Logged in with a **device PIN pairing** (doc 10 §4), not a personal account; can be revoked from admin. |
+| KDS-006 | P0 | Logged in with a **device PIN pairing** (doc 05 §14.2), not a personal account; can be revoked from admin. |
 | KDS-007 | P1 | All-day count view ("Paneer Tikka × 7 pending") for batch cooking. |
 | KDS-008 | P1 | Thermal printer KOT printing via print bridge (D-10). |
 
@@ -298,7 +298,7 @@ The admin app is used on laptops, tablets, and phones. Every screen must work on
 | ID | Pri | Requirement |
 |----|-----|-------------|
 | ADM-STF-001 | P0 | Invite staff by phone or email; staff set their own password (or login by phone OTP). |
-| ADM-STF-002 | P0 | Built-in roles: **Owner, Manager, Cashier, Waiter, Kitchen** with default permissions (doc 10 §3). |
+| ADM-STF-002 | P0 | Built-in roles: **Owner, Manager, Cashier, Waiter, Kitchen** with default permissions (doc 05 §14.3). |
 | ADM-STF-003 | P1 | Custom roles: copy a built-in role and toggle permissions. |
 | ADM-STF-004 | P0 | Assign staff to one or more outlets (all outlets for owners). |
 | ADM-STF-005 | P0 | Deactivate staff instantly (all their sessions end within 60 s). |
@@ -322,7 +322,7 @@ The admin app is used on laptops, tablets, and phones. Every screen must work on
 | ID | Pri | Requirement |
 |----|-----|-------------|
 | ADM-DSH-001 | P0 | **Today at a glance** (live): revenue so far, orders, average bill, guests served, open tables, compared with the same weekday last week, with a small sparkline by hour. |
-| ADM-DSH-002 | P0 | **Insight cards** at the top: 3–6 plain-language insights ranked by importance, each with an explanation and a suggested action (doc 11). Example: "Cold Coffee hasn't sold in 12 days. Consider removing it or adding a photo." |
+| ADM-DSH-002 | P0 | **Insight cards** at the top: 3–6 plain-language insights ranked by importance, each with an explanation and a suggested action (doc 05 §15). Example: "Cold Coffee hasn't sold in 12 days. Consider removing it or adding a photo." |
 | ADM-DSH-003 | P0 | Period selector: today, yesterday, last 7 days, last 30 days, this month, custom; outlet selector (all / one). |
 | ADM-DSH-004 | P0 | Metrics: revenue (gross, discounts, net, tax), orders, average order value, items sold, top and bottom items, category mix, peak hours heatmap (weekday × hour), payment method split, new vs returning customers, average prep time, average table turnover time, cancellation rate. |
 | ADM-DSH-005 | P0 | Every number can be tapped to see the underlying list (e.g. revenue → bills). |
@@ -373,7 +373,7 @@ The admin app is used on laptops, tablets, and phones. Every screen must work on
 
 ## 6. Non-functional requirements (summary)
 
-Details and measurement methods: docs 08, 09, 10.
+Details and how each is achieved: doc 05 §12 (performance), §13 (errors and reliability), §14 (security and privacy), §19 (scale).
 
 | ID | Requirement |
 |----|-------------|
@@ -383,12 +383,12 @@ Details and measurement methods: docs 08, 09, 10.
 | NFR-PERF-004 | API p95 < 200 ms for reads, < 400 ms for order placement (server time). |
 | NFR-PERF-005 | New order visible on KDS/board < 2 s p95 after server accepts it. |
 | NFR-REL-001 | 99.95 % availability during outlet service hours. |
-| NFR-REL-002 | Zero lost or duplicated orders (idempotency + outbox, doc 09). |
+| NFR-REL-002 | Zero lost or duplicated orders (idempotency + outbox, doc 05 §10). |
 | NFR-REL-003 | Guest app keeps the loaded menu and cart usable with no connection; KDS/board survive disconnects and resync. |
-| NFR-SCL-001 | Architecture supports 5,000 outlets, 100,000 concurrent guests, 200 orders/s burst, without redesign (doc 08 §9). |
+| NFR-SCL-001 | Architecture supports 5,000 outlets, 100,000 concurrent guests, 200 orders/s burst, without redesign (doc 05 §19). |
 | NFR-SEC-001 | Strict tenant isolation enforced in application code and database Row-Level Security. |
 | NFR-SEC-002 | All traffic over HTTPS (TLS 1.2+), HSTS; secrets never in code. |
-| NFR-PRV-001 | Compliance with India's DPDP Act 2023: notice, consent, purpose limitation, deletion, breach process (doc 10 §8). |
+| NFR-PRV-001 | Compliance with India's DPDP Act 2023: notice, consent, purpose limitation, deletion, breach process (doc 05 §14.8). |
 | NFR-A11Y-001 | WCAG 2.2 AA for guest and admin apps; respects reduced-motion and large-text settings. |
 | NFR-I18N-001 | All UI strings externalised in English and Hindi; menu content fields have optional Hindi values; INR and dates formatted in Indian style (`₹1,25,000`, `12 Mar, 8:42 PM`), with Devanagari rendering tested on every guest screen. |
 | NFR-BRW-001 | Guest app supports Android Chrome / Samsung Internet (last 3 years), iOS Safari 15+, in-app browsers of popular QR scanner and camera apps. Admin supports latest Chrome, Edge, Safari, Firefox. |
@@ -397,7 +397,7 @@ Details and measurement methods: docs 08, 09, 10.
 
 ## 7. Status models (product view)
 
-These define what guests and staff see. The technical state machines (with allowed transitions) are in doc 06 §7.
+These define what guests and staff see. The technical state machines (with allowed transitions) are in doc 05 §7.8.
 
 **Order**: `Sent (placed)` → `Confirmed` → `Preparing` → `Ready` → `Served`; side exits: `Declined` (by staff before confirm), `Cancelled` (by guest before preparing, or staff any time with reason).
 
@@ -453,7 +453,7 @@ The founder sets all prices and decides what each plan contains, using the plan 
 
 **Limits** (numbers per plan, overridable per tenant): `max_outlets`, `max_spots_per_outlet`, `max_staff`, `max_kds_devices`, `max_menu_items`, `max_photo_storage_mb`.
 
-When a tenant reaches a limit, the admin shows "You've reached your plan's limit of 20 tables. Contact us to upgrade." (doc 09 `PLAN_LIMIT_REACHED`). When a feature is off, its menu entries are hidden or shown with a lock and the same message. Data is never deleted when a plan is downgraded — only the feature becomes inaccessible.
+When a tenant reaches a limit, the admin shows "You've reached your plan's limit of 20 tables. Contact us to upgrade." (doc 05 §13.3 `PLAN_LIMIT_REACHED`). When a feature is off, its menu entries are hidden or shown with a lock and the same message. Data is never deleted when a plan is downgraded — only the feature becomes inaccessible.
 
 ---
 
@@ -467,9 +467,9 @@ Table reservations and waitlist · loyalty points · gift cards · delivery aggr
 
 - [ ] A new tenant can be created, branded, given a menu with photos, spots, and printed QR cards without developer help.
 - [ ] A guest can scan, browse, customise, order, follow status, add a second round, request bill, and be settled at counter.
-- [ ] Orders are never lost or duplicated under the network scenarios in doc 13 §5.
+- [ ] Orders are never lost or duplicated under the failure scenarios in doc 05 §13.6.
 - [ ] Returning verified guests are recognised and can reorder.
 - [ ] Kitchen and floor staff can run a full dinner service on KDS and the orders board.
 - [ ] Owner sees today's numbers, insight cards, and can export GST and sales reports.
-- [ ] Roles restrict actions as in doc 10 §3; audit log records sensitive actions.
-- [ ] Performance budgets in doc 08 are met on the reference devices.
+- [ ] Roles restrict actions as in doc 05 §14.3; audit log records sensitive actions.
+- [ ] Performance budgets in doc 05 §12 are met on the reference devices.
